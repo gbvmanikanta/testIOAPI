@@ -1,0 +1,15 @@
+vulnerability_found,vulnerability_type_matches,metadata_vulnerability_exists,expected_vuln_type,vulnerability found,vulnerability,vulnerable code,code fix,comment
+True,True,True,pathtraver,Yes,Path Traversal,fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + param;,fileName = org.owasp.benchmark.helpers.Utils.TESTFILES_DIR + java.nio.file.Paths.get(param).normalize().toString();,The vulnerable code is susceptible to path traversal attacks. The fix uses Java's Path normalization to prevent path traversal vulnerabilities.
+True,False,True,pathtraver,Yes,Cookie manipulation vulnerability,"userCookie.setPath(request.getRequestURI());
+userCookie.setDomain(new java.net.URL(request.getRequestURL().toString()).getHost());","// Set path and domain for cookie to prevent cookie manipulation
+userCookie.setPath(request.getContextPath());
+userCookie.setDomain(request.getServerName());",The code is vulnerable to cookie manipulation as it sets the path and domain based on user input. The fix sets the path and domain to more secure values to prevent manipulation.
+True,False,True,hash,Yes,Insecure Cookie Handling,userCookie.setSecure(true);,"userCookie.setSecure(true);
+userCookie.setHttpOnly(true);","The 'setSecure(true)' method is used to mark the cookie as secure, but it's recommended to also set the 'HttpOnly' flag to prevent client-side scripts from accessing the cookie value. Adding 'setHttpOnly(true)' enhances the security of the cookie handling."
+True,False,True,trustbound,Yes,Cookie Security Issue,userCookie.setDomain(new java.net.URL(request.getRequestURL().toString()).getHost());,"// Set domain to a specific value
+userCookie.setDomain(""example.com"");",The code is setting the cookie domain based on the request URL which can lead to security vulnerabilities like cookie hijacking. It's recommended to set the domain to a specific value to prevent such attacks.
+True,True,True,crypto,Yes,Hardcoded Encryption Key,"java.security.SecureRandom random = new java.security.SecureRandom();
+byte[] iv = random.generateSeed(8); // DES requires 8 byte keys","// Generate a secure random initialization vector
+SecureRandom random = new SecureRandom();
+byte[] iv = new byte[8];
+random.nextBytes(iv);",The code uses a hardcoded initialization vector which is not secure. It should generate a secure random initialization vector instead.
