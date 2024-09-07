@@ -4,7 +4,7 @@ from datetime import datetime
 from langchain.chat_models import ChatOpenAI
 import config
 
-llm_model = "gpt-3.5-turbo"
+llm_model = "gpt-4o-mini"
 temperature = 0.5
 benchmark_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S.%f")
 
